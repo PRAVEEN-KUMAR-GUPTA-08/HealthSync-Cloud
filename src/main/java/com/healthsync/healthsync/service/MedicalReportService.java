@@ -14,8 +14,10 @@ import com.healthsync.healthsync.repository.MedicalReportRepository;
 
 import net.sourceforge.tess4j.TesseractException;
 
+
 @Service
 public class MedicalReportService {
+    
 
     private final MedicalReportRepository reportRepository;
 
@@ -23,11 +25,19 @@ public class MedicalReportService {
     private String uploadDir;
 
     private final OcrService ocrService;
+    private final HealthParameterExtractionService extractionService;
+    private final HealthParameterComparisonService comparisonService;
 
-    public MedicalReportService(MedicalReportRepository reportRepository,OcrService ocrService) {
-        this.reportRepository = reportRepository;
-        this.ocrService = ocrService;
-}
+
+
+   public MedicalReportService(MedicalReportRepository reportRepository,OcrService ocrService,HealthParameterExtractionService extractionService,HealthParameterComparisonService comparisonService) {
+            this.reportRepository = reportRepository;
+            this.ocrService = ocrService;
+            this.extractionService = extractionService;
+            this.comparisonService = comparisonService;
+    }
+
+
 
 
     public MedicalReport uploadReport(MultipartFile file, User user) throws IOException {
@@ -56,6 +66,11 @@ public class MedicalReportService {
             report.setUser(user);
 
 
-        return reportRepository.save(report);
+            MedicalReport savedReport = reportRepository.save(report);
+            extractionService.extractParameters(savedReport);
+            comparisonService.compareAndUpdateStatus();
+
+        return savedReport;
+
     }
 }
