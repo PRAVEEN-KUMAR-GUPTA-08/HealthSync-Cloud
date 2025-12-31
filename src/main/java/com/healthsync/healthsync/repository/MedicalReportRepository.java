@@ -13,4 +13,6 @@ public interface MedicalReportRepository extends JpaRepository<MedicalReport, Lo
 
     // Fetch all reports uploaded by a specific user
     List<MedicalReport> findByUser(User user);
+    List<MedicalReport> findByUserOrderByUploadDateAsc(User user);
+
 }
