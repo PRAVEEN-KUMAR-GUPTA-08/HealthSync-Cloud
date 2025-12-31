@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HealthSync Dashboard</title>
+
+    <link rel="stylesheet" href="css/dashboard.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+<header>
+    <h1>🩺 HealthSync – Patient Dashboard</h1>
+    <p>Phase 1: Health Monitoring System</p>
+</header>
+
+<section class="grid">
+
+    <!-- Latest Report -->
+    <div class="card">
+        <h2>Latest Health Report</h2>
+        <ul id="latestReport"></ul>
+    </div>
+
+    <!-- Trend Chart -->
+    <div class="card">
+        <h2>Health Trends</h2>
+
+        <select id="parameterSelect">
+            <option value="Blood Sugar">Blood Sugar</option>
+            <option value="Hemoglobin">Hemoglobin</option>
+            <option value="Cholesterol">Cholesterol</option>
+        </select>
+
+
+        <canvas id="trendChart"></canvas>
+    </div>
+
+</section>
+
+<!-- History -->
+<section class="card">
+    <h2>Medical Report History</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Parameter</th>
+                <th>Value</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody id="historyTable"></tbody>
+    </table>
+</section>
+
+<footer>
+    HealthSync © 2025 | MCA Semester Project
+</footer>
+
+<script src="js/dashboard.js"></script>
+</body>
+</html>
